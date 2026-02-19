@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bank Accounts</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background: linear-gradient(135deg, #4a0c2e, #6a1b9a); /* maroon → purple */
+      color: #fff;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+    .card {
+      background: #fff;
+      color: #333;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      width: 250px;
+      padding: 20px;
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: scale(1.05);
+      background: #f3e5f5;
+    }
+    .card h3 {
+      margin-top: 0;
+      color: #6a1b9a;
+    }
+    .card p {
+      margin: 6px 0;
+    }
+  </style>
+</head>
+<body>
+  <h2>Bank Accounts</h2>
+  <div class="container" id="accountsContainer">
+    <!-- Cards will be inserted here -->
+  </div>
+  
+  <!-- Fetch data from API and display in cards -->
+  
+  <script>
+    async function loadAccounts() {
+      try {
+        const response = await fetch("http://localhost:8080/bank/api/all");
+        const accounts = await response.json();
+
+        const container = document.getElementById("accountsContainer");
+        container.innerHTML = ""; // clear old cards
+
+        accounts.forEach(acc => {
+          const card = document.createElement("div");
+          card.className = "card";
+          card.innerHTML = `
+            <h3>${acc.accnm}</h3>
+            <p><strong>Account No:</strong> ${acc.accno}</p>
+            <p><strong>Type:</strong> ${acc.acctype}</p>
+            <p><strong>Balance:</strong> ${acc.balance}</p>
+          `;
+          container.appendChild(card);
+        });
+      } catch (error) {
+        const container = document.getElementById("accountsContainer");
+        container.innerHTML = `<p>Error loading data: ${error}</p>`;
+      }
+    }
+
+    // Load accounts when page opens
+    window.onload = loadAccounts;
+  </script>
+</body>
+</html>

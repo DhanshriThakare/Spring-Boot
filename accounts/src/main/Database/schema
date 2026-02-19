@@ -1,0 +1,25 @@
+-- Create database
+CREATE DATABASE IF NOT EXISTS bankdb;
+USE bankdb;
+
+-- Create table
+CREATE TABLE IF NOT EXISTS accounts (
+    accno INT PRIMARY KEY,
+    accnm VARCHAR(100),
+    acctype VARCHAR(20),
+    balance INT
+);
+
+-- Insert sample data
+INSERT INTO accounts (accno, accnm, acctype, balance) VALUES
+(1001, 'Joe Root', 'saving', 12500),
+(1002, 'Alexis Mac Allister', 'current', 8900),
+(1003, 'Ben Stokes', 'fixed', 15000),
+(1004, 'Marcus Rashford', 'ppf', 47600),
+(1005, 'Jofra Archer', 'saving', 59800),
+(1006, 'Bukayo Saka', 'current', 11200),
+(1007, 'Jos Buttler', 'ppf', 613400),
+(1008, 'Phil Foden', 'fixed', 79200),
+(1009, 'Moeen Ali', 'saving', 28700),
+(1010, 'Jack Grealish', 'current', 10100);
+
